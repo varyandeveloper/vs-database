@@ -8,7 +8,7 @@ use VS\Database\Drivers\DriverInterface;
  * Class AbstractDatabase
  * @package VS\Database
  */
-abstract class AbstractDatabase
+abstract class AbstractDatabase implements DatabaseInterface
 {
     /**
      * @var string $table
