@@ -15,6 +15,13 @@ class Insert extends AbstractBuilder
     }
 
     protected const COLUMNS_ALIAS = '{{columns}}';
+    protected const VALUES_ALIAS = '{{values}}';
+    protected const DUPLICATE_ALIAS = '{{duplicate}}';
+
+    /**
+     * @var array
+     */
+    protected $onDuplicateData = [];
 
     /**
      * Insert constructor.
@@ -24,9 +31,11 @@ class Insert extends AbstractBuilder
     public function __construct(string $table = null, string $alias = null)
     {
         $this->content = sprintf(
-            'INSERT INTO %s (%s) ',
+            'INSERT INTO %s (%s) %s %s',
             static::TABLE_ALIAS,
-            static::COLUMNS_ALIAS
+            static::COLUMNS_ALIAS,
+            static::VALUES_ALIAS,
+            static::DUPLICATE_ALIAS
         );
         $this->childConstruct($table, $alias);
     }
@@ -44,6 +53,16 @@ class Insert extends AbstractBuilder
         }
 
         $this->content = str_replace(static::COLUMNS_ALIAS, rtrim($fieldsString, ','), $this->content);
+        return $this;
+    }
+
+    /**
+     * @param array $data
+     * @return $this
+     */
+    public function onDuplicateUpdate(array $data)
+    {
+        $this->onDuplicateData = $data;
         return $this;
     }
 
@@ -79,7 +98,7 @@ class Insert extends AbstractBuilder
             $valuesString .= '), ';
         }
 
-        $this->content .= rtrim($valuesString, ', ');
+        $this->content = str_replace(static::VALUES_ALIAS, rtrim($valuesString, ', '), $this->content);
         return $this;
     }
 
@@ -88,7 +107,30 @@ class Insert extends AbstractBuilder
      */
     public function __toString(): string
     {
-        $this->content = str_replace(static::TABLE_ALIAS, $this->table, $this->content);
+        $onDuplicate = '';
+
+        if (!empty($this->onDuplicateData)) {
+            $onDuplicate = 'ON DUPLICATE KEY UPDATE ';
+            foreach ($this->onDuplicateData as $field => $value) {
+
+                if (is_numeric($field)) {
+                    throw new BuilderException('Invalid numeric field for ON DUPLICATE UPDATE statement');
+                }
+
+                $uid = uniqid(':dpu');
+                $this->bindings[$uid] = $value;
+                $onDuplicate .= sprintf('%s = %s,', Filter::field($field), $uid);
+            }
+        }
+
+        $this->content = str_replace([
+            static::TABLE_ALIAS,
+            static::DUPLICATE_ALIAS,
+        ], [
+            $this->table,
+            rtrim($onDuplicate, ',')
+        ], $this->content);
+
         return parent::__toString();
     }
 }

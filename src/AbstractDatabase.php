@@ -81,7 +81,7 @@ abstract class AbstractDatabase implements DatabaseInterface
      */
     public static function getQueryLogs(bool $lastOnly = true): array
     {
-        if ($lastOnly) {
+        if ($lastOnly && !empty(static::$logs)) {
             return end(static::$logs);
         }
 

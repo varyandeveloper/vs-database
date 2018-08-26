@@ -9,7 +9,7 @@ use VS\Database\Builders\SQL\{
     AbstractBuilder, Delete, Insert, Join, Update, Select, Where, Replace
 };
 use VS\Database\Drivers\SQL\AbstractSQLDriver;
-use VS\General\DIFactory;
+use VS\DIContainer\Injector\Injector;
 
 /**
  * Class SQLDatabase
@@ -17,6 +17,7 @@ use VS\General\DIFactory;
  * @property Where $where
  * @method \PDOStatement query(string $sql, array $bindings = [])
  * @method SQLDatabase where(Where $where)
+ * @method SQLDatabase onDuplicateUpdate(array $data)
  */
 class SQLDatabase extends AbstractDatabase
 {
@@ -80,8 +81,7 @@ class SQLDatabase extends AbstractDatabase
      * @param array $map
      * @param array ...$values
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function insert(array $map, array ...$values): SQLDatabase
     {
@@ -97,8 +97,7 @@ class SQLDatabase extends AbstractDatabase
      * @param int $joinType
      * @param string $operator
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function join($joinTable, $firstColumn = null, $secondColumn = null, int $joinType = Join::INNER_JOIN, string $operator = Join::EQUAL_OPERATOR): SQLDatabase
     {
@@ -116,8 +115,7 @@ class SQLDatabase extends AbstractDatabase
     /**
      * @param string ...$fields
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function select(string ...$fields): SQLDatabase
     {
@@ -128,8 +126,7 @@ class SQLDatabase extends AbstractDatabase
     /**
      * @param array $data
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function update(array $data): SQLDatabase
     {
@@ -148,8 +145,7 @@ class SQLDatabase extends AbstractDatabase
      * @param array $map
      * @param array ...$values
      * @return $this
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function replace(array $map, array ...$values)
     {
@@ -161,8 +157,7 @@ class SQLDatabase extends AbstractDatabase
     /**
      * @param string|null $table
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function delete(string $table = null): SQLDatabase
     {
@@ -206,13 +201,12 @@ class SQLDatabase extends AbstractDatabase
      * @param string $method
      * @param array $arguments
      * @return SQLDatabase
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function __call(string $method, array $arguments): SQLDatabase
     {
         if (method_exists($this->builder, $method)) {
-            $this->getBuilder()->{$method}(...$arguments);
+            $this->getBuilder(get_class($this->builder))->{$method}(...$arguments);
         }
 
         return $this;
@@ -220,14 +214,13 @@ class SQLDatabase extends AbstractDatabase
 
     /**
      * @param string $builderClass
-     * @return AbstractBuilder|Select|Update|Insert|Delete|Replace
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @return AbstractBuilder
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     protected function getBuilder(string $builderClass = Select::class): AbstractBuilder
     {
         if (!$this->builder instanceof $builderClass) {
-            $this->builder = DIFactory::injectClass($builderClass);
+            $this->builder = Injector::injectClass($builderClass);
         }
         return $this->builder;
     }
