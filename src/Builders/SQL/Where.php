@@ -3,7 +3,7 @@
 namespace VS\Database\Builders\SQL;
 
 use VS\Database\Builders\Expression;
-use VS\General\DIFactory;
+use VS\DIContainer\Injector\Injector;
 
 
 /**
@@ -23,18 +23,17 @@ class Where extends AbstractBuilder
     }
 
     /**
-     * @param string|Expression $field
-     * @param mixed $values
+     * @param $field
+     * @param $values
      * @return Where
-     * @throws \ReflectionException
-     * @throws \VS\General\Exceptions\ClassNotFoundException
+     * @throws \VS\DIContainer\Injector\InjectorException
      */
     public function in($field, $values): Where
     {
         $valuesString = $values;
 
         if (is_callable($values)) {
-            $valuesString = trim(DIFactory::injectFunction($values));
+            $valuesString = trim(Injector::injectFunction($values));
             if (empty($valuesString)) {
                 throw new \InvalidArgumentException('Callable should return either SQL or ' . AbstractBuilder::class);
             }
