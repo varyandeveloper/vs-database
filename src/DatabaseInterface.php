@@ -13,9 +13,24 @@ interface DatabaseInterface
 {
     /**
      * @param string ...$fields
-     * @return DatabaseInterface
+     * @return mixed
      */
     public function select(string ...$fields);
+
+    /**
+     * @return mixed
+     */
+    public function beginTransaction();
+
+    /**
+     * @return mixed
+     */
+    public function commitTransaction();
+
+    /**
+     * @return mixed
+     */
+    public function rollbackTransaction();
 
     /**
      * @param array $columns

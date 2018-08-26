@@ -2,7 +2,6 @@
 
 namespace VS\Database\Drivers\SQL;
 
-use VS\Database\Builders\Expression;
 use VS\Database\Drivers\DriverInterface;
 
 /**

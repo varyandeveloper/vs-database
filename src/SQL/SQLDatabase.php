@@ -3,6 +3,7 @@
 namespace VS\Database\SQL;
 
 use VS\Database\AbstractDatabase;
+use VS\Database\Builders\BuilderException;
 use VS\Database\Builders\BuilderInterface;
 use VS\Database\Builders\SQL\{
     AbstractBuilder, Delete, Insert, Join, Update, Select, Where, Replace
@@ -34,6 +35,30 @@ class SQLDatabase extends AbstractDatabase
     }
 
     /**
+     * @return bool
+     */
+    public function beginTransaction()
+    {
+        return $this->getDriver()->getAdapter()->beginTransaction();
+    }
+
+    /**
+     * @return bool
+     */
+    public function commitTransaction()
+    {
+        return $this->getDriver()->getAdapter()->commit();
+    }
+
+    /**
+     * @return bool
+     */
+    public function rollbackTransaction()
+    {
+        return $this->getDriver()->getAdapter()->rollBack();
+    }
+
+    /**
      * @param BuilderInterface $builder
      * @return \PDOStatement
      * @throws \Throwable
@@ -41,6 +66,7 @@ class SQLDatabase extends AbstractDatabase
     public function execute(BuilderInterface $builder = null): \PDOStatement
     {
         if (null === $builder) {
+            $this->validateBeforeExecute();
             $this->builder->table($this->table);
             $builder = $this->builder;
         }
@@ -203,4 +229,16 @@ class SQLDatabase extends AbstractDatabase
         }
         return $this->builder;
     }
+
+    /**
+     * Validate query before execution
+     * @return void
+     */
+    protected function validateBeforeExecute()
+    {
+        if (empty($this->table)) {
+            throw new BuilderException('Table name not specified');
+        }
+    }
+
 }
