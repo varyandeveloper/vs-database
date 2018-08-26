@@ -1,25 +1,32 @@
 <?php
 
-namespace VS\Database\SQL;
+namespace VS\Database;
 
-use VS\Container\ContainerInterface;
-use VS\Container\FactoryInterface;
-use VS\Database\DatabaseInterface;
+use VS\Database\Builders\SQL\Filter;
+use VS\Database\Drivers\DriverInterface;
+use VS\DIContainer\DIContainerInterface;
+use VS\DIContainer\InvokableFactoryInterface;
 
 /**
  * Class DatabaseFactory
  * @package VS\Framework\Database
  */
-class DatabaseFactory implements FactoryInterface
+class DatabaseFactory implements InvokableFactoryInterface
 {
     /**
-     * @param ContainerInterface $container
+     * @param DIContainerInterface $factory
+     * @param array $params
      * @return DatabaseInterface
      */
-    public function __invoke(ContainerInterface $container): DatabaseInterface
+    public function __invoke(DIContainerInterface $factory, array $params = []): DatabaseInterface
     {
-        $configuration = $container->getConfiguration(__CLASS__);
-        $driver = $container->get($configuration['driver'], $configuration);
-        return new $configuration['class']($driver);
+        $configuration = $factory->getConfig(__CLASS__);
+        /**
+         * @var DriverInterface $driver
+         */
+        $driver = $factory->get($configuration->getByKey('driver'), $configuration->getConfig());
+        $class = $configuration->getByKey('class');
+        Filter::setDriver($driver);
+        return new $class($driver);
     }
 }

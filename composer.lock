@@ -4,34 +4,33 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "46cac9f52d6443a8364a56c6d2d6620f",
+    "content-hash": "ed91239139c3b8d10aa972a35cfb509e",
     "packages": [
         {
-            "name": "vs/container",
+            "name": "vs/di-container",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/varyandeveloper/vs-container.git",
-                "reference": "876eabb5caf87ca685e87d47fb839dd395602651"
+                "url": "https://github.com/varyandeveloper/VS-DIContainer.git",
+                "reference": "c38ebdc68f8cd12bee820e70270ea12533c01138"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varyandeveloper/vs-container/zipball/876eabb5caf87ca685e87d47fb839dd395602651",
-                "reference": "876eabb5caf87ca685e87d47fb839dd395602651",
+                "url": "https://api.github.com/repos/varyandeveloper/VS-DIContainer/zipball/c38ebdc68f8cd12bee820e70270ea12533c01138",
+                "reference": "c38ebdc68f8cd12bee820e70270ea12533c01138",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2",
-                "vs/general": "dev-master"
+                "php": "^7.2"
             },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "package",
+            "type": "project",
             "autoload": {
                 "psr-4": {
-                    "VS\\Container\\": "./src/"
-                }
+                    "VS\\DIContainer\\": "./src"
+                },
+                "files": [
+                    "./src/helpers.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -43,9 +42,8 @@
                     "email": "developervaryan@gmail.com"
                 }
             ],
-            "description": "VarYan's Container package",
-            "homepage": "https://github.com/varyandeveloper/vs-container",
-            "time": "2018-06-29T08:07:57+00:00"
+            "description": "PHP container with nested dependency injection",
+            "time": "2018-08-26T06:31:22+00:00"
         },
         {
             "name": "vs/general",
@@ -195,18 +193,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/manifest.git",
-                "reference": "29654cc208939d684071d5725dd1ad1f3e5d1733"
+                "reference": "7761fcacf03b4d4f16e7ccb606d4879ca431fcf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/manifest/zipball/29654cc208939d684071d5725dd1ad1f3e5d1733",
-                "reference": "29654cc208939d684071d5725dd1ad1f3e5d1733",
+                "url": "https://api.github.com/repos/phar-io/manifest/zipball/7761fcacf03b4d4f16e7ccb606d4879ca431fcf4",
+                "reference": "7761fcacf03b4d4f16e7ccb606d4879ca431fcf4",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-phar": "*",
-                "phar-io/version": "2.0.0",
+                "phar-io/version": "^2.0",
                 "php": "^5.6 || ^7.0"
             },
             "type": "library",
@@ -242,20 +240,20 @@
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
-            "time": "2018-06-23T10:38:44+00:00"
+            "time": "2018-07-08T19:23:20+00:00"
         },
         {
             "name": "phar-io/version",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "872340c7caa93bc4a2ce20d267498f8e578c856b"
+                "reference": "45a2ec53a73c70ce41d55cedef9063630abaf1b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/872340c7caa93bc4a2ce20d267498f8e578c856b",
-                "reference": "872340c7caa93bc4a2ce20d267498f8e578c856b",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/45a2ec53a73c70ce41d55cedef9063630abaf1b6",
+                "reference": "45a2ec53a73c70ce41d55cedef9063630abaf1b6",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +287,7 @@
                 }
             ],
             "description": "Library for handling version information and constraints",
-            "time": "2018-06-23T10:30:07+00:00"
+            "time": "2018-07-08T19:19:57+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -449,12 +447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c"
+                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c",
-                "reference": "6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
                 "shasum": ""
             },
             "require": {
@@ -471,7 +469,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -504,7 +502,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-05-09T14:00:54+00:00"
+            "time": "2018-08-05T17:53:17+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -512,12 +510,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "865662550c384bc1db7e51d29aeda1c2c161d69a"
+                "reference": "dfb0bf3622f59fe43c983940c7ba06b126f26289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/865662550c384bc1db7e51d29aeda1c2c161d69a",
-                "reference": "865662550c384bc1db7e51d29aeda1c2c161d69a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/dfb0bf3622f59fe43c983940c7ba06b126f26289",
+                "reference": "dfb0bf3622f59fe43c983940c7ba06b126f26289",
                 "shasum": ""
             },
             "require": {
@@ -567,7 +565,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-06-01T07:51:50+00:00"
+            "time": "2018-08-21T05:26:12+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -761,12 +759,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "11d92ae06224f98e406bcb626787fe56a41a874b"
+                "reference": "287dd08b6b789dcc307ec71e60131c6b1affc9c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/11d92ae06224f98e406bcb626787fe56a41a874b",
-                "reference": "11d92ae06224f98e406bcb626787fe56a41a874b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/287dd08b6b789dcc307ec71e60131c6b1affc9c4",
+                "reference": "287dd08b6b789dcc307ec71e60131c6b1affc9c4",
                 "shasum": ""
             },
             "require": {
@@ -811,7 +809,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.3-dev"
+                    "dev-master": "7.4-dev"
                 }
             },
             "autoload": {
@@ -837,7 +835,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-06-25T11:48:41+00:00"
+            "time": "2018-08-24T14:02:22+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -890,12 +888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "c9eb293d22c2f16b1304281538b7408210a41585"
+                "reference": "5de4fc177adf9bce8df98d8d141a7559d7ccf6da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/c9eb293d22c2f16b1304281538b7408210a41585",
-                "reference": "c9eb293d22c2f16b1304281538b7408210a41585",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/5de4fc177adf9bce8df98d8d141a7559d7ccf6da",
+                "reference": "5de4fc177adf9bce8df98d8d141a7559d7ccf6da",
                 "shasum": ""
             },
             "require": {
@@ -946,7 +944,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2018-06-14T16:44:28+00:00"
+            "time": "2018-07-12T15:12:46+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -1497,12 +1495,13 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "vs/general": 20,
-        "vs/container": 20
+        "vs/di-container": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-pdo": "*"
     },
     "platform-dev": []
 }

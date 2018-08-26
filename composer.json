@@ -5,8 +5,9 @@
     "type": "package",
     "require": {
         "php": "^7.2",
+        "ext-pdo": "*",
         "vs/general": "dev-master",
-        "vs/container": "dev-master"
+        "vs/di-container": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0"

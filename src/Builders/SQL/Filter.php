@@ -3,6 +3,7 @@
 namespace VS\Database\Builders\SQL;
 
 use VS\Database\Builders\Expression;
+use VS\Database\Drivers\DriverInterface;
 
 /**
  * Class Filter
@@ -11,30 +12,25 @@ use VS\Database\Builders\Expression;
 class Filter
 {
     /**
+     * @var DriverInterface
+     */
+    protected static $driver;
+
+    /**
+     * @param DriverInterface $driver
+     */
+    public static function setDriver(DriverInterface $driver)
+    {
+        self::$driver = $driver;
+    }
+
+    /**
      * @param string|Expression $field
      * @return string
      */
-    public static function field($field)
+    public static function field($field): string
     {
-        if ($field instanceof Expression) {
-            return "'$field'";
-        }
-
-        if ($field === '*') {
-            return $field;
-        }
-
-        if (strpos($field, '.') !== FALSE) {
-            [$prefix, $suffix] = explode('.', $field);
-            if ($suffix !== '*') {
-                $suffix = self::alias($suffix);
-            }
-            $field = "`$prefix`.$suffix";
-        } else {
-            $field = self::alias($field);
-        }
-
-        return $field;
+        return self::$driver::field($field);
     }
 
     /**
@@ -43,17 +39,6 @@ class Filter
      */
     public static function alias($alias): string
     {
-        if ($alias instanceof Expression) {
-            return "'$alias'";
-        }
-
-        if (strpos($alias, 'as ') !== FALSE) {
-            [$prefix, $alias] = explode(' ', str_replace('as ', '', $alias));
-            $alias = "`$prefix` as `$alias`";
-        } else {
-            $alias = "`$alias`";
-        }
-
-        return $alias;
+        return self::$driver::alias($alias);
     }
 }

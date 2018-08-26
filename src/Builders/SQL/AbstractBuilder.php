@@ -2,11 +2,13 @@
 
 namespace VS\Database\Builders\SQL;
 
+use VS\Database\Builders\BuilderInterface;
+
 /**
  * Class AbstractBuilder
  * @package VS\Database\Builders\SQL
  */
-abstract class AbstractBuilder
+abstract class AbstractBuilder implements  BuilderInterface
 {
     const TABLE_ALIAS = '{{table}}';
     const NOT_EQUAL_OPERATOR = '<>';
