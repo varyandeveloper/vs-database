@@ -3,13 +3,17 @@
 namespace VS\Database\SQL;
 
 use VS\Database\AbstractDatabase;
-use VS\Database\Builders\BuilderException;
-use VS\Database\Builders\BuilderInterface;
+use VS\Database\Drivers\SQL\AbstractSQLDriver;
+use VS\DIContainer\Injector\Injector;
+use VS\Database\Builders\{
+    BuilderException, BuilderInterface
+};
 use VS\Database\Builders\SQL\{
     AbstractBuilder, Delete, Insert, Join, Update, Select, Where, Replace
 };
-use VS\Database\Drivers\SQL\AbstractSQLDriver;
-use VS\DIContainer\Injector\Injector;
+use VS\Database\{
+    SQLBadMethodCallException, SQLBadPropertyUseException
+};
 
 /**
  * Class SQLDatabase
@@ -186,15 +190,15 @@ class SQLDatabase extends AbstractDatabase
      */
     public function __get($name): AbstractBuilder
     {
-        if (property_exists($this->builder, $name)) {
-            return $this->builder->{$name};
+        if (!property_exists($this->builder, $name)) {
+            throw new SQLBadPropertyUseException(sprintf(
+                'Class %s dose not have %s property',
+                get_class($this->builder),
+                $name
+            ));
         }
 
-        throw new \InvalidArgumentException(sprintf(
-            'Class %s dose not have %s property',
-            get_class(),
-            $name
-        ));
+        return $this->builder->{$name};
     }
 
     /**
@@ -205,10 +209,15 @@ class SQLDatabase extends AbstractDatabase
      */
     public function __call(string $method, array $arguments): SQLDatabase
     {
-        if (method_exists($this->builder, $method)) {
-            $this->getBuilder(get_class($this->builder))->{$method}(...$arguments);
+        if (!method_exists($this->builder, $method)) {
+            throw new SQLBadMethodCallException(sprintf(
+                'Class %s dose not have %s method',
+                get_class($this->builder),
+                $method
+            ));
         }
 
+        $this->getBuilder(get_class($this->builder))->{$method}(...$arguments);
         return $this;
     }
 
