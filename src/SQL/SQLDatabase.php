@@ -76,7 +76,7 @@ class SQLDatabase extends AbstractDatabase
             $builder = $this->builder;
         }
 
-        $statement = $this->query($builder->getContent(), $builder->getBindings());
+        $statement = $this->query($builder->__toString(), $builder->getBindings());
         $this->builder = null;
         return $statement;
     }
@@ -121,7 +121,7 @@ class SQLDatabase extends AbstractDatabase
      * @return SQLDatabase
      * @throws \VS\DIContainer\Injector\InjectorException
      */
-    public function select(string ...$fields): SQLDatabase
+    public function select(...$fields): SQLDatabase
     {
         $this->getBuilder()->fields(...$fields);
         return $this;

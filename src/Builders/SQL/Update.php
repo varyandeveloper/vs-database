@@ -105,7 +105,7 @@ class Update extends AbstractBuilder
     /**
      * @return string
      */
-    public function getContent(): string
+    public function __toString(): string
     {
         $this->bindWhere();
         $this->bindJoin();
@@ -117,7 +117,7 @@ class Update extends AbstractBuilder
             $this->content
         ), ', ');
 
-        return parent::getContent();
+        return parent::__toString();
     }
 
     /**

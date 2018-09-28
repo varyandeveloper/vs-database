@@ -61,9 +61,9 @@ class Join extends AbstractBuilder
     /**
      * @return string
      */
-    public function getContent(): string
+    public function __toString(): string
     {
         $this->content = str_replace(static::TABLE_ALIAS, $this->table, $this->content);
-        return parent::getContent();
+        return parent::__toString();
     }
 }

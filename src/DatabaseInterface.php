@@ -3,6 +3,8 @@
 namespace VS\Database;
 
 use VS\Database\Builders\BuilderInterface;
+use VS\Database\Builders\Expression;
+use VS\Database\Builders\SQL\AbstractBuilder;
 use VS\Database\Drivers\DriverInterface;
 
 /**
@@ -12,10 +14,10 @@ use VS\Database\Drivers\DriverInterface;
 interface DatabaseInterface
 {
     /**
-     * @param string ...$fields
+     * @param string|Expression|AbstractBuilder ...$fields
      * @return mixed
      */
-    public function select(string ...$fields);
+    public function select(...$fields);
 
     /**
      * @return mixed

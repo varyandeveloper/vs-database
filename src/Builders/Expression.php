@@ -25,7 +25,7 @@ class Expression
     /**
      * @return string
      */
-    public function getContent(): string
+    public function __toString(): string
     {
         return $this->content;
     }
