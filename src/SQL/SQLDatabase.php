@@ -76,7 +76,7 @@ class SQLDatabase extends AbstractDatabase
             $builder = $this->builder;
         }
 
-        $statement = $this->query($builder->__toString(), $builder->getBindings());
+        $statement = $this->query($builder->getContent(), $builder->getBindings());
         $this->builder = null;
         return $statement;
     }

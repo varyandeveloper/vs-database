@@ -151,7 +151,7 @@ class Select extends AbstractBuilder
     /**
      * @return string
      */
-    public function __toString(): string
+    public function getContent(): string
     {
         $this->bindJoin();
         $this->bindWhere();
@@ -172,7 +172,7 @@ class Select extends AbstractBuilder
             $this->content = sprintf('(%s) as %s', $this->content, $this->as);
         }
 
-        return parent::__toString();
+        return parent::getContent();
     }
 
     /**

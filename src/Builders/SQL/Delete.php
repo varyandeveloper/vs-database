@@ -37,12 +37,12 @@ class Delete extends AbstractBuilder
     /**
      * @return string
      */
-    public function __toString(): string
+    public function getContent(): string
     {
         $this->bindWhere();
         $this->bindJoin();
         $this->content = str_replace(static::TABLE_ALIAS, $this->table, $this->content);
-        return parent::__toString();
+        return parent::getContent();
     }
 
     /**

@@ -105,7 +105,7 @@ class Insert extends AbstractBuilder
     /**
      * @return string
      */
-    public function __toString(): string
+    public function getContent(): string
     {
         $onDuplicate = '';
 
@@ -131,6 +131,6 @@ class Insert extends AbstractBuilder
             rtrim($onDuplicate, ',')
         ], $this->content);
 
-        return parent::__toString();
+        return parent::getContent();
     }
 }

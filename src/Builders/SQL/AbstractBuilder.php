@@ -74,7 +74,7 @@ abstract class AbstractBuilder implements  BuilderInterface
     /**
      * @return string
      */
-    public function __toString(): string
+    public function getContent(): string
     {
         return str_replace(['  ', ' ,', ' )', '( '], [' ', ',', ')', '('], trim($this->content));
     }
