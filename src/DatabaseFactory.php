@@ -18,7 +18,7 @@ class DatabaseFactory implements InvokableFactoryInterface
      * @param array $params
      * @return DatabaseInterface
      */
-    public function __invoke(DIContainerInterface $factory, array $params = []): DatabaseInterface
+    public function __invoke(DIContainerInterface $factory, string $className, array $params = []): DatabaseInterface
     {
         $configuration = $factory->getConfig(__CLASS__);
         /**
