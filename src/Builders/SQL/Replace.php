@@ -22,9 +22,10 @@ class Replace extends Insert
         $this->childConstruct($table, $alias);
         parent::__construct($table, $alias);
         $this->content = sprintf(
-            'REPLACE INTO %s (%s) ',
+            'REPLACE INTO %s (%s) %s ',
             static::TABLE_ALIAS,
-            static::COLUMNS_ALIAS
+            static::COLUMNS_ALIAS,
+            static::VALUES_ALIAS
         );
     }
 }
